@@ -1,5 +1,8 @@
 # mutex
 
+# note that because python, you don't really need a mutex because python only simulates multiple threads
+# however this is just to show the concept
+
 from sync import Thread, Semaphore, watcher
 
 mutex = Semaphore(1)
