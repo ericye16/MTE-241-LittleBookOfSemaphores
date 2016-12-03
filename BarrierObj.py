@@ -8,24 +8,22 @@ class Barrier:
     self.count = 0
     self.mutex = Semaphore(1)
     self.turnstile = Semaphore(0)
-    self.turnstile2 = Semaphore(1)
+    self.turnstile2 = Semaphore(0)
 
   def phase1(self):
     self.mutex.wait()
     self.count += 1
-    if count == N_THREADS:
-      self.turnstile2.wait()
-      for j in range(N_THREADS):
+    if self.count == self.N_THREADS:
+      for j in range(self.N_THREADS):
         self.turnstile.signal()
     self.mutex.signal()
     self.turnstile.wait()
 
-  def phase1(self):
+  def phase2(self):
     self.mutex.wait()
     self.count -= 1
-    if count == 0:
-      self.turnstile.wait()
-      for j in range(N_THREADS):
+    if self.count == 0:
+      for j in range(self.N_THREADS):
         self.turnstile2.signal()
     self.mutex.signal()
     self.turnstile2.wait()

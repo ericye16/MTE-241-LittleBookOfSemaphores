@@ -1,5 +1,7 @@
 # multiplex
 
+# desired: up to NUM_SIMULTANEOUS "critical point" at once
+
 from sync import Thread, Semaphore, watcher
 
 NUM_SIMULTANEOUS = 3

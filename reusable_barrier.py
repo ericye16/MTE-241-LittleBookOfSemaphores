@@ -1,5 +1,8 @@
 # reusable barrier using two-phase turnstile
 
+# desired: (all rendezvous 0) < (all critical point 0) < (all rendezvous 1) < (all critical point 1) 
+# < ... (all rendezvous N_LOOPS - 1) < (all critical point N_LOOPS - 1)
+
 from sync import Thread, Semaphore, watcher
 
 N_THREADS = 10

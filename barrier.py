@@ -1,5 +1,7 @@
 # barrier
 
+# desired: (all rendezvous) < (all critical point)
+
 # suboptimal because the last task probably is the lowest-priority task, so this involves a lot of context switches
 from sync import Thread, Semaphore, watcher
 

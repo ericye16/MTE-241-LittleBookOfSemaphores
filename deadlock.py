@@ -1,5 +1,7 @@
 # deadlock
 
+# desired: (a1 and b1) then hangs forever (ctrl+c to exit)
+
 from sync import Thread, Semaphore, watcher
 
 sem1 = Semaphore(0)

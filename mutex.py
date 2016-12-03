@@ -1,5 +1,7 @@
 # mutex
 
+# desired: count always 2 at end
+
 # note that because python, you don't really need a mutex because python only simulates multiple threads
 # however this is just to show the concept
 

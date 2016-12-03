@@ -1,5 +1,7 @@
 # rendezvous
 
+# desired: (a1 and b1) < (a2 and b2)
+
 from sync import Thread, Semaphore, watcher
 
 sem1 = Semaphore(0)

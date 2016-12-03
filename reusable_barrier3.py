@@ -4,37 +4,20 @@
 # < ... (all rendezvous N_LOOPS - 1) < (all critical point N_LOOPS - 1)
 
 from sync import Thread, Semaphore, watcher
+from BarrierObj import Barrier
 
 N_THREADS = 10
-count = 0
-mutex = Semaphore(1)
-turnstile = Semaphore(0)
-turnstile2 = Semaphore(0)
+barrier = Barrier(N_THREADS)
 
 N_LOOPS = 3
 
 def child(i):
-  global count
   for l in range(N_LOOPS):
     # phase 1
     print(str(i) + "rendezvous " + str(l))
-    mutex.wait()
-    count += 1
-    if count == N_THREADS:
-      for j in range(N_THREADS):
-        turnstile.signal()
-    mutex.signal()
-    turnstile.wait()
+    barrier.phase1()
     print(str(i) + "critical point " + str(l))
-
-    # phase 2
-    mutex.wait()
-    count -= 1
-    if count == 0:
-      for j in range(N_THREADS):
-        turnstile2.signal()
-    mutex.signal()
-    turnstile2.wait()
+    barrier.phase2()
 
 watcher()
 

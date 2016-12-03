@@ -1,5 +1,7 @@
 # turnstile
 
+# desired: (all rendezvous) < (all critical points)
+
 from sync import Thread, Semaphore, watcher
 
 N_THREADS = 10

@@ -1,3 +1,5 @@
+# desired: "b" then "a"
+
 from sync import Thread, Semaphore, watcher
 
 sem = Semaphore(0)
