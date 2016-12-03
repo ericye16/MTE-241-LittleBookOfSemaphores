@@ -4,6 +4,7 @@
 # < ... (all rendezvous N_LOOPS - 1) < (all critical point N_LOOPS - 1)
 
 from sync import Thread, Semaphore, watcher
+import time, random
 
 N_THREADS = 10
 count = 0
@@ -17,13 +18,14 @@ def child(i):
   global count
   for l in range(N_LOOPS):
     # phase 1
+    time.sleep(random.random() * 5)
     print(str(i) + "rendezvous " + str(l))
     mutex.wait()
     count += 1
     mutex.signal()
     if count == N_THREADS:
-      turnstile.signal()
       turnstile2.wait()
+      turnstile.signal()
     turnstile.wait()
     turnstile.signal()
     print(str(i) + "critical point " + str(l))
@@ -33,8 +35,8 @@ def child(i):
     count -= 1
     mutex.signal()
     if count == 0:
-      turnstile2.signal()
       turnstile.wait()
+      turnstile2.signal()
     turnstile2.wait()
     turnstile2.signal()
 
