@@ -24,9 +24,10 @@ def cowboy(i):
       fullPot.wait()
       servings = M
     servings -= 1
+    time.sleep(random.random()) # it takes up to 1s to take a serving
     print("Cowboy %d took a serving with %d servings left" % (i, servings))
     mutex.signal()
-    time.sleep(random.random() * 5)
+    time.sleep(random.random() * 5) # it takes up to 5s to eat a serving
     # print("Cowboy %d finished eating" % i)
 
 def cook():
