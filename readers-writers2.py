@@ -1,18 +1,18 @@
-# readers writers
+# readers writers using lightswitches
 
 # desired: n readers can all simultaneously read a value but only 1 writer can write
 # no readers can be reading while writing is happening
 
 # note that there's a tendency for starvation to occur unless you tune the sleeps properly
 from sync import Thread, Semaphore, watcher
+from LightswitchObj import LightswitchObj
 import time, random
 
 N_READERS = 5
 N_WRITERS = 5
 
 value = 0
-readers = 0
-mutex = Semaphore(1)
+lightswitch = LightswitchObj()
 roomEmpty = Semaphore(1)
 
 def writer(i):
@@ -27,20 +27,12 @@ def writer(i):
 
 def reader(i):
   global value
-  global readers
+  global LightswitchObj
   while True:
-    mutex.wait()
-    readers += 1
-    if readers == 1:
-      roomEmpty.wait()
-    mutex.signal()
-    print("Reader %d with %d readers is reading %d" % (i, readers, value))
+    lightswitch.lock(roomEmpty)
+    print("Reader %d is reading %d" % (i, value))
     time.sleep(random.random() * 5)
-    mutex.wait()
-    readers -= 1
-    if readers == 0:
-      roomEmpty.signal()
-    mutex.signal()
+    lightswitch.unlock(roomEmpty)
     time.sleep(random.random() * 10)
 
 
